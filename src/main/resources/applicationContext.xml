@@ -34,5 +34,4 @@
          	 <constructor-arg ref = "serviceLayer"></constructor-arg>
           	 <constructor-arg ref = "view"></constructor-arg>
           </bean>
-   
 </beans>

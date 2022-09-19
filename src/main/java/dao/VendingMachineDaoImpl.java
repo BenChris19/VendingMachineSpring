@@ -113,7 +113,6 @@ public class VendingMachineDaoImpl implements VendingMachineDao{
 	}
 	
 
-	@SuppressWarnings("unused")
 	private void loadItem() throws VendingMachinePersistenceException{
 		
 		Scanner sc;
@@ -147,7 +146,6 @@ public class VendingMachineDaoImpl implements VendingMachineDao{
 	}
 	
 
-	@SuppressWarnings("unused")
 	private void writeItem() throws VendingMachinePersistenceException{
 		
 		PrintWriter out;

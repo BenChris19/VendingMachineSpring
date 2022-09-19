@@ -11,8 +11,6 @@ import org.springframework.stereotype.Component;
 import dto.Change;
 import dto.Item;
 import dto.OptionEnter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @Component
 public class VendingMachineView {

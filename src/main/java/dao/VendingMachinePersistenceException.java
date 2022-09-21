@@ -1,5 +1,10 @@
 package dao;
 
+/**
+ * Throw error if there is a problem wit the file the items of the vending machine are on.
+ * @author benat
+ *
+ */
 @SuppressWarnings("serial")
 public class VendingMachinePersistenceException extends Exception {
 	

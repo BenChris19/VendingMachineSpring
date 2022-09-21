@@ -10,4 +10,5 @@ public interface UserIO {
 	OptionEnter readOption();
 	BigDecimal readBigDecimal();
 	public String readString();
+	void readAnything();
 }

@@ -18,6 +18,11 @@ import dto.Change;
 import dto.Change.Coin;
 import dto.Item;
 
+/**
+ * Implements Vending machine data access. This class is in charge of reading and writing to text file
+ * @author benat
+ *
+ */
 @Component
 public class VendingMachineDaoImpl implements VendingMachineDao{
 
@@ -27,14 +32,27 @@ public class VendingMachineDaoImpl implements VendingMachineDao{
 	
 	private HashMap<String,Item> inventory = new HashMap<>();
 
+	/**
+	 * Vending machine implementation constructor. Specify text file path where vending machine items are located.
+	 * @param vendingMachineTextFile
+	 */
 	public VendingMachineDaoImpl() {
 		VENDING_MACHINE_FILE = "VendingMachine.txt";
 	}
 	
+	/**
+	 * Vending machine implementation constructor. Specify text file path where vending machine items are located.
+	 * @param vendingMachineTextFile
+	 */
 	public VendingMachineDaoImpl(String vendingMachineTextFile) {
 		VENDING_MACHINE_FILE = vendingMachineTextFile;
 	}	
 
+	/**
+	 * Purchase items from vending machine
+	 * @param name
+	 * @param cash
+	 */
 	@Override
 	public Change buyItems(String name, BigDecimal cash) throws VendingMachinePersistenceException {
 		loadItem();
@@ -47,26 +65,30 @@ public class VendingMachineDaoImpl implements VendingMachineDao{
 		return change;
 	}
 
+	/**
+	 * Get all items from the vending machine
+	 */
 	@Override
 	public List<Item> getAllItems() throws VendingMachinePersistenceException{
 		loadItem();
 		return new ArrayList<Item>(inventory.values());
 	}
 
-	@Override
-	public void addItem(Item item) throws VendingMachinePersistenceException {
-		loadItem();
-		inventory.put(item.getItemName(), item);
-		writeItem();
-		return;
-	}
-
+	/**
+	 * Get an item from the vending machine
+	 * @param name
+	 */
 	@Override
 	public Item getItem(String name) throws VendingMachinePersistenceException {
 		loadItem();
 		return inventory.get(name);
 	}
 
+	/**
+	 * Get change after purchasing an item from the vending machine
+	 * @param itemPrice
+	 * @param cash
+	 */
 	@Override
 	public Change getChange(BigDecimal itemPrice, BigDecimal cash) throws VendingMachinePersistenceException{
 		
@@ -98,6 +120,11 @@ public class VendingMachineDaoImpl implements VendingMachineDao{
 		return change;
 	}
 
+	/**
+	 * Unmarshall items from the text file
+	 * @param ItemAsText
+	 * @return
+	 */
 	private Item unmarshallItem(String ItemAsText) {
 		
 		String[] ItemAsElements = ItemAsText.split(DELIMITER);
@@ -112,7 +139,10 @@ public class VendingMachineDaoImpl implements VendingMachineDao{
 		return itemFromFile;
 	}
 	
-
+	/**
+	 * Load items from text file
+	 * @throws VendingMachinePersistenceException
+	 */
 	private void loadItem() throws VendingMachinePersistenceException{
 		
 		Scanner sc;
@@ -135,7 +165,11 @@ public class VendingMachineDaoImpl implements VendingMachineDao{
 		sc.close();
 	}
 	
-	//Translate data from object in memory into a text file.
+	/**
+	 * Translate data from object in memory into a text file.
+	 * @param item
+	 * @return
+	 */
 	private String marshallItem(Item item) {
 		
 		String ItemAsText = item.getItemName() + DELIMITER;
@@ -145,7 +179,10 @@ public class VendingMachineDaoImpl implements VendingMachineDao{
 		return ItemAsText;
 	}
 	
-
+	/**
+	 * Write an item on to the vending machine text file
+	 * @throws VendingMachinePersistenceException
+	 */
 	private void writeItem() throws VendingMachinePersistenceException{
 		
 		PrintWriter out;

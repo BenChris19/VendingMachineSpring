@@ -9,15 +9,26 @@ import org.springframework.stereotype.Component;
 
 import dto.OptionEnter;
 
+/**
+ * Handles user input
+ * @author benat
+ *
+ */
 @Component
 public class UserIOImpl implements UserIO {
 	private final Scanner sc = new Scanner(System.in);
 
+	/**
+	 * Print a message to the user.
+	 */
 	public void print(String msg) {
 		System.out.println(msg);
 		
 	}
 
+	/**
+	 * Read yes or no option from the user if they want to buy something or leave the vending machine.
+	 */
 	public OptionEnter readOption() {
 		OptionEnter option = null;
         boolean validInput = true;
@@ -40,6 +51,9 @@ public class UserIOImpl implements UserIO {
         return option;
 	}
 
+	/**
+	 * Read a decimal number from the user
+	 */
 	public BigDecimal readBigDecimal() {
         boolean invalidInput = true;
         BigDecimal decimal = new BigDecimal("0.0");
@@ -47,7 +61,13 @@ public class UserIOImpl implements UserIO {
             try {
             	String stringValue = sc.nextLine();
             	decimal = new BigDecimal(stringValue);
-            	invalidInput=false;
+            	if(decimal.compareTo(BigDecimal.ZERO)<=0) {
+            		this.print("Please enter a number larger than 0");
+            		invalidInput = true;
+            	}
+            	else {
+            		invalidInput=false;
+            	}
                 
             } catch (NumberFormatException e) {
                 this.print("Input error. Please try again.");
@@ -78,5 +98,12 @@ public class UserIOImpl implements UserIO {
         } while(!validInput);
         return string;
 	}
-
+	
+    /**
+	* Read if the user has entered any blank spaces. Used for the user to continue with the program.
+	*/
+	@Override
+	public void readAnything() {
+		sc.nextLine();
+	}
 }
